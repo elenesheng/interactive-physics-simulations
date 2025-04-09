@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>p5.js Particle System</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+        font-family: Arial, sans-serif;
+      }
+
+      #controls {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 10px;
+        border-radius: 5px;
+      }
+
+      #error-message {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        background-color: rgba(255, 0, 0, 0.7);
+        padding: 20px;
+        border-radius: 5px;
+        z-index: 200;
+        font-family: Arial, sans-serif;
+        display: none;
+      }
+
+      a.back-link {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        text-decoration: none;
+        color: #3498db;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="controls">
+      <h2>p5.js 2D Animation Demo</h2>
+      <p>Click on the canvas to add more particles</p>
+    </div>
+
+    <div id="error-message"></div>
+
+    <a class="back-link" href="index.html">← Back to Examples</a>
+
+    <!-- Error handler -->
+    <script>
+      window.addEventListener('error', function (event) {
+        console.error('Error detected:', event.message);
+        document.getElementById('error-message').style.display = 'block';
+        document.getElementById('error-message').textContent =
+          'Error loading p5.js sketch: ' +
+          event.message +
+          ' - Please check console for details.';
+      });
+    </script>
+
+    <!-- Load p5.js library from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js"></script>
+    <script src="sketch.js"></script>
+  </body>
+</html>

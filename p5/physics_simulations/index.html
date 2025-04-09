@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>p5.js Physics Simulations</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 30px;
+        background-color: #f0f0f0;
+        color: #333;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      h1 {
+        color: #2c3e50;
+      }
+
+      .examples-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-gap: 20px;
+      }
+
+      .example-card {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        transition: transform 0.3s;
+      }
+
+      .example-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .example-card h2 {
+        font-size: 1.3em;
+        margin-top: 0;
+        color: #3498db;
+      }
+
+      .example-card p {
+        line-height: 1.5;
+      }
+
+      a.example-link {
+        display: inline-block;
+        background-color: #3498db;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 4px;
+        text-decoration: none;
+        margin-top: 10px;
+        transition: background-color 0.3s;
+      }
+
+      a.example-link:hover {
+        background-color: #2980b9;
+      }
+
+      a.back-link {
+        display: inline-block;
+        margin-top: 30px;
+        text-decoration: none;
+        color: #3498db;
+      }
+
+      a.back-link:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>p5.js Physics Simulations</h1>
+      <p>Interactive examples demonstrating fundamental physics concepts</p>
+    </header>
+
+    <div class="examples-grid">
+      <div class="example-card">
+        <h2>Force and Motion</h2>
+        <p>
+          This simulation demonstrates Newton's second law (F=ma) with a simple
+          object affected by gravity and wind forces.
+        </p>
+        <p>Concepts: Force, mass, acceleration, velocity, and position</p>
+        <a class="example-link" href="force_and_motion/index.html"
+          >View Example</a
+        >
+      </div>
+
+      <!-- Additional simulations can be added here as cards -->
+    </div>
+
+    <center>
+      <a class="back-link" href="../index.html">← Back to All p5.js Examples</a>
+    </center>
+  </body>
+</html>
