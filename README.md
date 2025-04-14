@@ -42,4 +42,9 @@ This will open a browser window at `http://localhost:3001` with the three.js sce
 
 - [p5.js Documentation](https://p5js.org/reference/)
 - [three.js Documentation](https://threejs.org/docs/)
+
 # interactive-physics-simulations
+
+## Acknowledgments
+
+Many of the physics simulations in this project, especially those using p5.js, are inspired by Daniel Shiffman's work in ["The Nature of Code"](https://natureofcode.com/) and his [Coding Train](https://www.youtube.com/c/TheCodingTrain) YouTube channel. His educational materials have been invaluable in creating these interactive demonstrations.
