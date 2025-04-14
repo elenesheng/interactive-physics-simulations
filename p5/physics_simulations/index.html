@@ -5,36 +5,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>p5.js Physics Simulations</title>
     <style>
+      :root {
+        /* Color palette */
+        --primary-color: #3498db;
+        --primary-dark: #2980b9;
+        --text-color: #333;
+        --heading-color: #2c3e50;
+        --bg-color: #f0f0f0;
+        --card-bg: #ffffff;
+
+        /* Spacing */
+        --container-padding: 30px;
+        --container-width: 800px;
+        --grid-gap: 20px;
+        --card-padding: 20px;
+        --spacing-sm: 10px;
+        --spacing-md: 20px;
+        --spacing-lg: 30px;
+        --spacing-xl: 40px;
+
+        /* Typography */
+        --font-size-base: 16px;
+        --font-size-lg: 18px;
+        --font-size-xl: 24px;
+        --line-height: 1.5;
+      }
+
+      /* Reset and base styles */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
       body {
         font-family: Arial, sans-serif;
-        max-width: 800px;
+        max-width: var(--container-width);
         margin: 0 auto;
-        padding: 30px;
-        background-color: #f0f0f0;
-        color: #333;
+        padding: var(--container-padding);
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        font-size: var(--font-size-base);
+        line-height: var(--line-height);
       }
 
       header {
         text-align: center;
-        margin-bottom: 40px;
+        margin-bottom: var(--spacing-xl);
       }
 
       h1 {
-        color: #2c3e50;
+        color: var(--heading-color);
+        margin-bottom: var(--spacing-sm);
       }
 
       .examples-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        grid-gap: 20px;
+        grid-gap: var(--grid-gap);
       }
 
       .example-card {
-        background-color: white;
+        background-color: var(--card-bg);
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        padding: 20px;
+        padding: var(--card-padding);
         transition: transform 0.3s;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
       }
 
       .example-card:hover {
@@ -42,39 +81,73 @@
       }
 
       .example-card h2 {
-        font-size: 1.3em;
+        font-size: var(--font-size-lg);
         margin-top: 0;
-        color: #3498db;
+        margin-bottom: var(--spacing-sm);
+        color: var(--primary-color);
       }
 
       .example-card p {
-        line-height: 1.5;
+        line-height: var(--line-height);
+        margin-bottom: var(--spacing-sm);
+      }
+
+      .card-content {
+        flex: 1;
+      }
+
+      .card-footer {
+        margin-top: auto;
+        padding-top: var(--spacing-sm);
       }
 
       a.example-link {
         display: inline-block;
-        background-color: #3498db;
+        background-color: var(--primary-color);
         color: white;
         padding: 8px 16px;
         border-radius: 4px;
         text-decoration: none;
-        margin-top: 10px;
         transition: background-color 0.3s;
       }
 
       a.example-link:hover {
-        background-color: #2980b9;
+        background-color: var(--primary-dark);
       }
 
       a.back-link {
         display: inline-block;
-        margin-top: 30px;
+        margin-top: var(--spacing-lg);
         text-decoration: none;
-        color: #3498db;
+        color: var(--primary-color);
       }
 
       a.back-link:hover {
         text-decoration: underline;
+      }
+
+      /* Mobile responsive adjustments */
+      @media (max-width: 768px) {
+        :root {
+          --container-padding: 20px;
+          --card-padding: 15px;
+          --grid-gap: 15px;
+          --spacing-xl: 30px;
+        }
+
+        .examples-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Very small screens */
+      @media (max-width: 480px) {
+        :root {
+          --container-padding: 15px;
+          --font-size-base: 14px;
+          --font-size-lg: 16px;
+          --font-size-xl: 20px;
+        }
       }
     </style>
   </head>
@@ -86,28 +159,51 @@
 
     <div class="examples-grid">
       <div class="example-card">
-        <h2>Force and Motion</h2>
-        <p>
-          This simulation demonstrates Newton's second law (F=ma) with a simple
-          object affected by gravity and wind forces.
-        </p>
-        <p>Concepts: Force, mass, acceleration, velocity, and position</p>
-        <a class="example-link" href="force_and_motion/index.html"
-          >View Example</a
-        >
+        <div class="card-content">
+          <h2>Force and Motion</h2>
+          <p>
+            This simulation demonstrates Newton's second law (F=ma) with a
+            simple object affected by gravity and wind forces.
+          </p>
+          <p>Concepts: Force, mass, acceleration, velocity, and position</p>
+        </div>
+        <div class="card-footer">
+          <a class="example-link" href="force_and_motion/index.html"
+            >View Example</a
+          >
+        </div>
       </div>
 
       <div class="example-card">
-        <h2>Mass and Force</h2>
-        <p>
-          Compare how objects with different masses respond to the same forces.
-          See why lighter objects are more affected by wind but all objects fall
-          at the same rate.
-        </p>
-        <p>Concepts: Mass, variable forces, gravitational acceleration</p>
-        <a class="example-link" href="mass_and_force/index.html"
-          >View Example</a
-        >
+        <div class="card-content">
+          <h2>Mass and Force</h2>
+          <p>
+            Compare how objects with different masses respond to the same
+            forces. See why lighter objects are more affected by wind but all
+            objects fall at the same rate.
+          </p>
+          <p>Concepts: Mass, variable forces, gravitational acceleration</p>
+        </div>
+        <div class="card-footer">
+          <a class="example-link" href="mass_and_force/index.html"
+            >View Example</a
+          >
+        </div>
+      </div>
+
+      <div class="example-card">
+        <div class="card-content">
+          <h2>Friction</h2>
+          <p>
+            Explore how friction opposes motion when objects are in contact.
+            Watch as an object gradually comes to rest due to friction and
+            energy loss during bounces.
+          </p>
+          <p>Concepts: Friction forces, surface contact, energy dissipation</p>
+        </div>
+        <div class="card-footer">
+          <a class="example-link" href="friction/index.html">View Example</a>
+        </div>
       </div>
 
       <!-- Additional simulations can be added here as cards -->
@@ -116,5 +212,8 @@
     <center>
       <a class="back-link" href="../index.html">← Back to All p5.js Examples</a>
     </center>
+
+    <!-- Add the common Mover class that can be shared across simulations -->
+    <script src="common/mover.js"></script>
   </body>
 </html>

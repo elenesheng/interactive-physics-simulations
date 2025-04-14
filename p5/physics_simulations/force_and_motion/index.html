@@ -5,197 +5,307 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Force and Motion Simulation</title>
     <style>
+      :root {
+        /* Color palette */
+        --primary-color: #2980b9;
+        --secondary-color: #27ae60;
+        --tertiary-color: #e74c3c;
+        --bg-color: #f0f0f0;
+        --card-bg: #ffffff;
+        --theory-bg: #e3f2fd;
+
+        /* Spacing */
+        --container-padding: 20px;
+        --content-width: 640px;
+        --spacing-sm: 10px;
+        --spacing-md: 15px;
+        --spacing-lg: 20px;
+
+        /* Typography */
+        --font-size-base: 16px;
+        --font-size-sm: 14px;
+        --font-size-lg: 18px;
+        --font-size-xl: 24px;
+      }
+
+      /* Reset and base styles */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
       body {
         margin: 0;
-        padding: 20px;
-        background-color: #f0f0f0;
+        padding: var(--container-padding);
+        background-color: var(--bg-color);
         font-family: Arial, sans-serif;
+        font-size: var(--font-size-base);
+        line-height: 1.5;
+      }
+
+      /* Layout containers */
+      .container {
+        max-width: var(--content-width);
+        margin: 0 auto;
+        width: 100%;
       }
 
       #canvas-container {
         display: flex;
         justify-content: center;
-        margin-top: 20px;
+        margin-top: var(--spacing-lg);
+        width: 100%;
       }
 
+      /* Header styles */
       header {
         text-align: center;
-        margin-bottom: 20px;
+        margin-bottom: var(--spacing-lg);
+      }
+
+      /* Card styles */
+      .card {
+        width: 100%;
+        margin: var(--spacing-lg) auto;
+        padding: var(--spacing-md);
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       }
 
       .instructions {
-        max-width: 640px;
-        margin: 0 auto;
-        background-color: white;
-        padding: 15px;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        margin-top: 20px;
+        background-color: var(--card-bg);
       }
 
       .theory {
-        max-width: 640px;
-        margin: 20px auto;
-        background-color: #e3f2fd;
-        padding: 15px;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        background-color: var(--theory-bg);
       }
 
+      /* Typography */
       h1 {
         color: #333;
+        font-size: var(--font-size-xl);
+        margin-bottom: var(--spacing-sm);
       }
 
       h2 {
-        color: #2980b9;
+        color: var(--primary-color);
+        font-size: var(--font-size-lg);
+        margin-bottom: var(--spacing-sm);
       }
 
+      h3 {
+        color: var(--secondary-color);
+        font-size: var(--font-size-base);
+        margin: var(--spacing-md) 0 var(--spacing-sm);
+      }
+
+      p {
+        margin-bottom: var(--spacing-md);
+      }
+
+      ul,
+      ol {
+        padding-left: var(--spacing-lg);
+        margin-bottom: var(--spacing-md);
+      }
+
+      li {
+        margin-bottom: var(--spacing-sm);
+      }
+
+      /* Code blocks */
       .code-reference {
         background-color: #f8f9fa;
-        border-left: 4px solid #4caf50;
-        padding: 10px;
-        margin: 10px 0;
+        padding: var(--spacing-sm);
+        margin: var(--spacing-sm) 0;
         font-family: monospace;
+        white-space: pre-wrap;
+        overflow-x: auto;
+        border-radius: 3px;
+        font-size: var(--font-size-sm);
+        border-left: 4px solid #4caf50;
       }
 
+      /* Links */
       a.back-link {
         display: inline-block;
-        margin-top: 20px;
+        margin-top: var(--spacing-lg);
         text-decoration: none;
-        color: #3498db;
+        color: var(--primary-color);
       }
 
       a.back-link:hover {
         text-decoration: underline;
+      }
+
+      /* Mobile responsive adjustments */
+      @media (max-width: 768px) {
+        :root {
+          --container-padding: 15px;
+          --spacing-lg: 15px;
+          --spacing-md: 10px;
+          --font-size-xl: 20px;
+          --font-size-lg: 16px;
+        }
+
+        .card {
+          padding: var(--spacing-sm);
+        }
+
+        .code-reference {
+          font-size: var(--font-size-sm);
+        }
+
+        ul,
+        ol {
+          padding-left: var(--spacing-md);
+        }
+      }
+
+      /* Very small screens */
+      @media (max-width: 480px) {
+        :root {
+          --font-size-base: 14px;
+          --font-size-sm: 12px;
+        }
       }
     </style>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js"></script>
   </head>
   <body>
-    <header>
-      <h1>Force and Motion Simulation</h1>
-      <p>Based on "The Nature of Code" by Daniel Shiffman</p>
-    </header>
+    <div class="container">
+      <header>
+        <h1>Force and Motion Simulation</h1>
+        <p>Based on "The Nature of Code" by Daniel Shiffman</p>
+      </header>
 
-    <div id="canvas-container"></div>
+      <div id="canvas-container"></div>
 
-    <div class="instructions">
-      <h2>How To Use</h2>
-      <p>
-        This simulation demonstrates basic physics principles of force, mass,
-        and motion:
-      </p>
-      <ul>
-        <li>
-          The gray ball is affected by <strong>gravity</strong> (constantly
-          pulling downward)
-        </li>
-        <li>
-          <strong>Click and hold</strong> anywhere to apply a
-          <strong>wind force</strong> from the left
-        </li>
-        <li>
-          The ball <strong>bounces</strong> when it hits the edges of the canvas
-        </li>
-      </ul>
-    </div>
-
-    <div class="theory">
-      <h2>Physics Theory: Newton's Laws of Motion</h2>
-
-      <h3>Newton's First Law: Law of Inertia</h3>
-      <p>
-        An object at rest stays at rest, and an object in motion stays in motion
-        with the same speed and direction, unless acted upon by a force.
-      </p>
-      <p>
-        In our simulation: Without forces (gravity or wind), the ball would
-        either remain still or move in a straight line forever.
-      </p>
-      <div class="code-reference">
-        // The ball moves only when forces are applied
-        this.velocity.add(this.acceleration); this.position.add(this.velocity);
+      <div class="card instructions">
+        <h2>How To Use</h2>
+        <p>
+          This simulation demonstrates basic physics principles of force, mass,
+          and motion:
+        </p>
+        <ul>
+          <li>
+            The gray ball is affected by <strong>gravity</strong> (constantly
+            pulling downward)
+          </li>
+          <li>
+            <strong>Click and hold</strong> anywhere to apply a
+            <strong>wind force</strong> from the left
+          </li>
+          <li>
+            The ball <strong>bounces</strong> when it hits the edges of the
+            canvas
+          </li>
+        </ul>
       </div>
 
-      <h3>Newton's Second Law: F = ma</h3>
-      <p>
-        The acceleration of an object depends on the force applied and the
-        object's mass. More force creates more acceleration. More mass reduces
-        acceleration.
-      </p>
-      <p>
-        Formula: Force = Mass × Acceleration, or Acceleration = Force ÷ Mass
-      </p>
-      <p>
-        In our simulation: We calculate acceleration by dividing applied forces
-        by the ball's mass.
-      </p>
-      <div class="code-reference">
-        // This implements F = ma (rearranged as a = F/m) applyForce(force) {
-        let f = p5.Vector.div(force, this.mass); this.acceleration.add(f); }
+      <div class="card theory">
+        <h2>Physics Theory: Newton's Laws of Motion</h2>
+
+        <h3>Newton's First Law: Law of Inertia</h3>
+        <p>
+          An object at rest stays at rest, and an object in motion stays in
+          motion with the same speed and direction, unless acted upon by a
+          force.
+        </p>
+        <p>
+          In our simulation: Without forces (gravity or wind), the ball would
+          either remain still or move in a straight line forever.
+        </p>
+        <div class="code-reference">
+          // The ball moves only when forces are applied
+          this.velocity.add(this.acceleration);
+          this.position.add(this.velocity);
+        </div>
+
+        <h3>Newton's Second Law: F = ma</h3>
+        <p>
+          The acceleration of an object depends on the force applied and the
+          object's mass. More force creates more acceleration. More mass reduces
+          acceleration.
+        </p>
+        <p>
+          Formula: Force = Mass × Acceleration, or Acceleration = Force ÷ Mass
+        </p>
+        <p>
+          In our simulation: We calculate acceleration by dividing applied
+          forces by the ball's mass.
+        </p>
+        <div class="code-reference">
+          // This implements F = ma (rearranged as a = F/m) applyForce(force) {
+          let f = p5.Vector.div(force, this.mass); this.acceleration.add(f); }
+        </div>
+
+        <h3>Newton's Third Law: Action and Reaction</h3>
+        <p>For every action, there is an equal and opposite reaction.</p>
+        <p>
+          In our simulation: When the ball hits an edge, it rebounds with equal
+          force in the opposite direction.
+        </p>
+        <div class="code-reference">
+          // When the ball hits a wall, it bounces back if (this.position.y >
+          height) { this.velocity.y *= -1; // Velocity reverses direction }
+        </div>
       </div>
 
-      <h3>Newton's Third Law: Action and Reaction</h3>
-      <p>For every action, there is an equal and opposite reaction.</p>
-      <p>
-        In our simulation: When the ball hits an edge, it rebounds with equal
-        force in the opposite direction.
-      </p>
-      <div class="code-reference">
-        // When the ball hits a wall, it bounces back if (this.position.y >
-        height) { this.velocity.y *= -1; // Velocity reverses direction }
+      <div class="card theory">
+        <h2>How This Physics Simulation Works</h2>
+
+        <h3>Key Concepts:</h3>
+        <ul>
+          <li>
+            <strong>Position</strong>: Where the ball is located (x,y
+            coordinates)
+          </li>
+          <li>
+            <strong>Velocity</strong>: How fast the ball is moving and in what
+            direction
+          </li>
+          <li>
+            <strong>Acceleration</strong>: How quickly the velocity is changing
+          </li>
+          <li>
+            <strong>Force</strong>: What causes acceleration (gravity, wind)
+          </li>
+          <li>
+            <strong>Mass</strong>: How much the ball resists changes in motion
+          </li>
+        </ul>
+
+        <h3>The Animation Loop:</h3>
+        <ol>
+          <li>Forces (gravity, wind) are applied to the ball</li>
+          <li>These forces create acceleration (force ÷ mass)</li>
+          <li>Acceleration changes velocity</li>
+          <li>Velocity changes position</li>
+          <li>We draw the ball at its new position</li>
+          <li>We check if the ball hit any edges</li>
+          <li>Repeat for the next frame</li>
+        </ol>
+
+        <h3>Try This:</h3>
+        <p>Imagine what would happen if:</p>
+        <ul>
+          <li>The ball had more mass (it would accelerate more slowly)</li>
+          <li>The gravity force was stronger (the ball would fall faster)</li>
+          <li>There was friction (the ball would gradually slow down)</li>
+        </ul>
       </div>
+
+      <center>
+        <a class="back-link" href="../index.html"
+          >← Back to Physics Simulations</a
+        >
+      </center>
     </div>
 
-    <div class="theory">
-      <h2>How This Physics Simulation Works</h2>
-
-      <h3>Key Concepts:</h3>
-      <ul>
-        <li>
-          <strong>Position</strong>: Where the ball is located (x,y coordinates)
-        </li>
-        <li>
-          <strong>Velocity</strong>: How fast the ball is moving and in what
-          direction
-        </li>
-        <li>
-          <strong>Acceleration</strong>: How quickly the velocity is changing
-        </li>
-        <li>
-          <strong>Force</strong>: What causes acceleration (gravity, wind)
-        </li>
-        <li>
-          <strong>Mass</strong>: How much the ball resists changes in motion
-        </li>
-      </ul>
-
-      <h3>The Animation Loop:</h3>
-      <ol>
-        <li>Forces (gravity, wind) are applied to the ball</li>
-        <li>These forces create acceleration (force ÷ mass)</li>
-        <li>Acceleration changes velocity</li>
-        <li>Velocity changes position</li>
-        <li>We draw the ball at its new position</li>
-        <li>We check if the ball hit any edges</li>
-        <li>Repeat for the next frame</li>
-      </ol>
-
-      <h3>Try This:</h3>
-      <p>Imagine what would happen if:</p>
-      <ul>
-        <li>The ball had more mass (it would accelerate more slowly)</li>
-        <li>The gravity force was stronger (the ball would fall faster)</li>
-        <li>There was friction (the ball would gradually slow down)</li>
-      </ul>
-    </div>
-
-    <center>
-      <a class="back-link" href="../../index.html">← Back to p5.js Examples</a>
-    </center>
-
-    <script src="mover.js"></script>
+    <script src="../common/mover.js"></script>
     <script src="sketch.js"></script>
   </body>
 </html>

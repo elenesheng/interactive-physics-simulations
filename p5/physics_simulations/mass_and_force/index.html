@@ -5,78 +5,139 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mass and Force Simulation</title>
     <style>
+      :root {
+        /* Color palette */
+        --primary-color: #2980b9;
+        --secondary-color: #27ae60;
+        --tertiary-color: #e74c3c;
+        --bg-color: #f0f0f0;
+        --card-bg: #ffffff;
+        --theory-bg: #e3f2fd;
+        --comparison-bg: #fff8e1;
+
+        /* Spacing */
+        --container-padding: 20px;
+        --content-width: 640px;
+        --spacing-sm: 10px;
+        --spacing-md: 15px;
+        --spacing-lg: 20px;
+
+        /* Typography */
+        --font-size-base: 16px;
+        --font-size-sm: 14px;
+        --font-size-lg: 18px;
+        --font-size-xl: 24px;
+      }
+
+      /* Reset and base styles */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
       body {
         margin: 0;
-        padding: 20px;
-        background-color: #f0f0f0;
+        padding: var(--container-padding);
+        background-color: var(--bg-color);
         font-family: Arial, sans-serif;
+        font-size: var(--font-size-base);
         line-height: 1.6;
+      }
+
+      /* Layout containers */
+      .container {
+        max-width: var(--content-width);
+        margin: 0 auto;
+        width: 100%;
       }
 
       #canvas-container {
         display: flex;
         justify-content: center;
-        margin-top: 20px;
+        margin-top: var(--spacing-lg);
+        width: 100%;
       }
 
+      /* Header styles */
       header {
         text-align: center;
-        margin-bottom: 20px;
+        margin-bottom: var(--spacing-lg);
+      }
+
+      /* Card styles */
+      .card {
+        width: 100%;
+        margin: var(--spacing-lg) auto;
+        padding: var(--spacing-md);
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       }
 
       .instructions {
-        max-width: 640px;
-        margin: 0 auto;
-        background-color: white;
-        padding: 15px;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        margin-top: 20px;
+        background-color: var(--card-bg);
       }
 
       .theory {
-        max-width: 640px;
-        margin: 20px auto;
-        background-color: #e3f2fd;
-        padding: 15px;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        background-color: var(--theory-bg);
       }
 
       .comparison {
-        max-width: 640px;
-        margin: 20px auto;
-        background-color: #fff8e1;
-        padding: 15px;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        background-color: var(--comparison-bg);
       }
 
+      /* Typography */
       h1 {
         color: #333;
+        font-size: var(--font-size-xl);
+        margin-bottom: var(--spacing-sm);
       }
 
       h2 {
-        color: #2980b9;
+        color: var(--primary-color);
+        font-size: var(--font-size-lg);
+        margin-bottom: var(--spacing-sm);
       }
 
       h3 {
-        color: #27ae60;
+        color: var(--secondary-color);
+        font-size: var(--font-size-base);
+        margin: var(--spacing-md) 0 var(--spacing-sm);
       }
 
+      p {
+        margin-bottom: var(--spacing-md);
+      }
+
+      ul,
+      ol {
+        padding-left: var(--spacing-lg);
+        margin-bottom: var(--spacing-md);
+      }
+
+      li {
+        margin-bottom: var(--spacing-sm);
+      }
+
+      /* Code blocks */
       .code-reference {
         background-color: #f8f9fa;
-        border-left: 4px solid #4caf50;
-        padding: 10px;
-        margin: 10px 0;
+        padding: var(--spacing-sm);
+        margin: var(--spacing-sm) 0;
         font-family: monospace;
         white-space: pre-wrap;
+        overflow-x: auto;
+        border-radius: 3px;
+        font-size: var(--font-size-sm);
+        border-left: 4px solid #4caf50;
       }
 
+      /* Tables */
       table {
         width: 100%;
         border-collapse: collapse;
-        margin: 20px 0;
+        margin: var(--spacing-lg) 0;
+        font-size: var(--font-size-sm);
       }
 
       th,
@@ -90,6 +151,7 @@
         background-color: #f2f2f2;
       }
 
+      /* Highlights */
       .highlight {
         background-color: #fff59d;
         padding: 2px 5px;
@@ -106,15 +168,57 @@
         font-weight: bold;
       }
 
+      /* Links */
       a.back-link {
         display: inline-block;
-        margin-top: 20px;
+        margin-top: var(--spacing-lg);
         text-decoration: none;
-        color: #3498db;
+        color: var(--primary-color);
       }
 
       a.back-link:hover {
         text-decoration: underline;
+      }
+
+      /* Mobile responsive adjustments */
+      @media (max-width: 768px) {
+        :root {
+          --container-padding: 15px;
+          --spacing-lg: 15px;
+          --spacing-md: 10px;
+          --font-size-xl: 20px;
+          --font-size-lg: 16px;
+        }
+
+        .card {
+          padding: var(--spacing-sm);
+        }
+
+        .code-reference {
+          font-size: var(--font-size-sm);
+        }
+
+        table {
+          font-size: var(--font-size-sm);
+        }
+
+        ul,
+        ol {
+          padding-left: var(--spacing-md);
+        }
+      }
+
+      /* Very small screens */
+      @media (max-width: 480px) {
+        :root {
+          --font-size-base: 14px;
+          --font-size-sm: 12px;
+        }
+
+        td,
+        th {
+          padding: 4px;
+        }
       }
     </style>
 
@@ -122,208 +226,189 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js"></script>
   </head>
   <body>
-    <header>
-      <h1>Mass and Force Simulation</h1>
-      <p>Exploring how objects with different masses respond to forces</p>
-    </header>
+    <div class="container">
+      <header>
+        <h1>Mass and Force Simulation</h1>
+        <p>Exploring how objects with different masses respond to forces</p>
+      </header>
 
-    <div id="canvas-container"></div>
+      <div id="canvas-container"></div>
 
-    <div class="instructions">
-      <h2>How To Use</h2>
-      <p>
-        This simulation shows two objects with different masses responding to
-        forces:
-      </p>
-      <ul>
-        <li>
-          The <span class="object-a">larger ball</span> on the left has a mass
-          of 10 units
-        </li>
-        <li>
-          The <span class="object-b">smaller ball</span> on the right has a mass
-          of 2 units
-        </li>
-        <li>
-          Both objects experience <strong>gravity</strong> (constantly pulling
-          downward)
-        </li>
-        <li>
-          <strong>Click and hold</strong> anywhere to apply a
-          <strong>wind force</strong> from the left
-        </li>
-        <li>
-          Notice how the <span class="object-b">smaller ball</span> responds
-          more dramatically to the wind force
-        </li>
-        <li>
-          Both balls <strong>bounce</strong> when they hit the edges of the
-          canvas
-        </li>
-      </ul>
-    </div>
-
-    <div class="theory">
-      <h2>Physics Concepts: Mass, Force, and Acceleration</h2>
-
-      <h3>Newton's Second Law: F = ma</h3>
-      <p>
-        This law states that the force applied to an object (F) equals its mass
-        (m) times the resulting acceleration (a).
-      </p>
-      <p>We can rewrite this as: <strong>a = F/m</strong>, which means:</p>
-      <ul>
-        <li>
-          Objects with <strong>larger mass</strong> require
-          <strong>more force</strong> to achieve the same acceleration
-        </li>
-        <li>
-          Given the same force, objects with <strong>less mass</strong> will
-          <strong>accelerate more</strong>
-        </li>
-      </ul>
-
-      <div class="code-reference">
-        // In our code, we implement Newton's Second Law here: applyForce(force)
-        { let forceCopy = p5.Vector.div(force, this.mass);
-        this.acceleration.add(forceCopy); }
+      <div class="card instructions">
+        <h2>How To Use</h2>
+        <p>
+          This simulation shows two objects with different masses responding to
+          forces:
+        </p>
+        <ul>
+          <li>
+            The <span class="object-a">larger ball</span> on the left has a mass
+            of 10 units
+          </li>
+          <li>
+            The <span class="object-b">smaller ball</span> on the right has a
+            mass of 2 units
+          </li>
+          <li>
+            Both objects experience <strong>gravity</strong> (constantly pulling
+            downward)
+          </li>
+          <li>
+            <strong>Click and hold</strong> anywhere to apply a
+            <strong>wind force</strong> from the left
+          </li>
+          <li>
+            Notice how the <span class="object-b">smaller ball</span> responds
+            more dramatically to the wind force
+          </li>
+          <li>
+            Both balls <strong>bounce</strong> when they hit the edges of the
+            canvas
+          </li>
+        </ul>
       </div>
 
-      <h3>Gravitational Force</h3>
-      <p>
-        In the real world, gravity affects objects proportionally to their mass.
-        This is Newton's Law of Universal Gravitation.
-      </p>
-      <p>
-        A 10kg object experiences 10 times the gravitational force of a 1kg
-        object.
-      </p>
+      <div class="card theory">
+        <h2>Physics Concepts: Mass, Force, and Acceleration</h2>
 
-      <div class="code-reference">
-        // In our code, we calculate gravitational force proportional to mass:
-        let gravity = createVector(0, 0.1); let gravityA =
-        p5.Vector.mult(gravity, moverA.mass); moverA.applyForce(gravityA);
+        <h3>Newton's Second Law: F = ma</h3>
+        <p>
+          This law states that the force applied to an object (F) equals its
+          mass (m) times the resulting acceleration (a).
+        </p>
+        <p>We can rewrite this as: <strong>a = F/m</strong>, which means:</p>
+        <ul>
+          <li>
+            Objects with <strong>larger mass</strong> require
+            <strong>more force</strong> to achieve the same acceleration
+          </li>
+          <li>
+            Given the same force, objects with <strong>less mass</strong> will
+            <strong>accelerate more</strong>
+          </li>
+        </ul>
+
+        <div class="code-reference">
+          // In our code, we implement Newton's Second Law here:
+          applyForce(force) { let forceCopy = p5.Vector.div(force, this.mass);
+          this.acceleration.add(forceCopy); }
+        </div>
+
+        <h3>Gravitational Force</h3>
+        <p>
+          In the real world, gravity affects objects proportionally to their
+          mass. This is Newton's Law of Universal Gravitation.
+        </p>
+        <p>
+          A 10kg object experiences 10 times the gravitational force of a 1kg
+          object.
+        </p>
+
+        <div class="code-reference">
+          // In our code, we calculate gravitational force proportional to mass:
+          let gravity = createVector(0, 0.1); let gravityA =
+          p5.Vector.mult(gravity, moverA.mass); moverA.applyForce(gravityA);
+        </div>
+
+        <p>
+          However, despite this force difference, all objects
+          <em>accelerate</em> at the same rate due to gravity. This is because:
+        </p>
+        <ol>
+          <li>Gravitational force is: F = mg (mass × gravity constant)</li>
+          <li>Acceleration is: a = F/m = mg/m = g (the mass cancels out!)</li>
+          <li>
+            This is why objects fall at the same rate in a vacuum, regardless of
+            mass
+          </li>
+        </ol>
       </div>
 
-      <p>
-        However, despite this force difference, all objects
-        <em>accelerate</em> at the same rate due to gravity. This is because:
-      </p>
-      <ol>
-        <li>Gravitational force is: F = mg (mass × gravity constant)</li>
-        <li>Acceleration is: a = F/m = mg/m = g (the mass cancels out!)</li>
-        <li>
-          This is why objects fall at the same rate in a vacuum, regardless of
-          mass
-        </li>
-      </ol>
-    </div>
+      <div class="card comparison">
+        <h2>Comparing Different Forces</h2>
 
-    <div class="comparison">
-      <h2>Comparing Different Forces</h2>
+        <table>
+          <tr>
+            <th>Force Type</th>
+            <th>Proportional to Mass?</th>
+            <th>Example</th>
+            <th>Differential Effect</th>
+          </tr>
+          <tr>
+            <td>Gravitational force</td>
+            <td>Yes (F = mg)</td>
+            <td>Earth's gravity pulling on objects</td>
+            <td>All objects accelerate at the same rate (a = g)</td>
+          </tr>
+          <tr>
+            <td>Wind force</td>
+            <td>No (constant force)</td>
+            <td>Air pushing against objects</td>
+            <td>Lighter objects accelerate more (a = F/m)</td>
+          </tr>
+        </table>
 
-      <table>
-        <tr>
-          <th>Force Type</th>
-          <th>Proportional to Mass?</th>
-          <th>Example</th>
-          <th>Differential Effect</th>
-        </tr>
-        <tr>
-          <td>Gravitational force</td>
-          <td>Yes (F = mg)</td>
-          <td>Earth's gravity pulling on objects</td>
-          <td>All objects accelerate at the same rate (a = g)</td>
-        </tr>
-        <tr>
-          <td>Wind force</td>
-          <td>No (constant force)</td>
-          <td>Air pushing against objects</td>
-          <td>Lighter objects accelerate more (a = F/m)</td>
-        </tr>
-      </table>
-
-      <h3>Wind Force Demonstration</h3>
-      <p>When you click and apply wind:</p>
-      <ul>
-        <li>
-          Both objects receive the <strong>same wind force</strong> (0.1 units)
-        </li>
-        <li>
-          The <span class="object-a">larger ball</span> (mass = 10) gets
-          acceleration of: a = 0.1/10 = 0.01
-        </li>
-        <li>
-          The <span class="object-b">smaller ball</span> (mass = 2) gets
-          acceleration of: a = 0.1/2 = 0.05
-        </li>
-        <li>
-          The <span class="object-b">smaller ball</span> accelerates 5 times
-          faster from the same wind force!
-        </li>
-      </ul>
-
-      <div class="code-reference">
-        // In our code, we apply the same wind force to both objects: if
-        (mouseIsPressed) { let wind = createVector(0.1, 0);
-        moverA.applyForce(wind); // Same force applied to the heavy object
-        moverB.applyForce(wind); // Same force applied to the light object }
+        <h3>Wind Force Demonstration</h3>
+        <p>When you click and apply wind:</p>
+        <ul>
+          <li>
+            Both objects receive the <strong>same wind force</strong> (0.1
+            units)
+          </li>
+          <li>
+            The <span class="object-a">heavier object</span> (mass = 10) gets
+            acceleration of 0.01 units (0.1 ÷ 10)
+          </li>
+          <li>
+            The <span class="object-b">lighter object</span> (mass = 2) gets
+            acceleration of 0.05 units (0.1 ÷ 2)
+          </li>
+          <li>
+            The <span class="object-b">lighter object</span> accelerates
+            <strong>5 times faster</strong> than the heavy object!
+          </li>
+        </ul>
       </div>
+
+      <div class="card comparison">
+        <h2>Real-world Applications</h2>
+
+        <h3>Galileo's Experiment</h3>
+        <p>
+          Legend says that Galileo dropped balls of different masses from the
+          Leaning Tower of Pisa to demonstrate that they would hit the ground at
+          the same time, contradicting Aristotle's belief that heavier objects
+          fall faster.
+        </p>
+
+        <h3>The Apollo 15 Hammer and Feather Drop</h3>
+        <p>
+          In 1971, astronaut David Scott recreated Galileo's experiment on the
+          Moon by dropping a hammer and a feather simultaneously. With no air
+          resistance, they hit the lunar surface at exactly the same time,
+          confirming that gravity accelerates all objects equally.
+        </p>
+
+        <h3>Vehicle Design</h3>
+        <p>
+          Engineers consider mass carefully when designing vehicles. Less
+          massive vehicles:
+        </p>
+        <ul>
+          <li>Require less force to accelerate (more fuel efficient)</li>
+          <li>Are more affected by external forces like wind</li>
+          <li>Have less inertia, making them more maneuverable</li>
+        </ul>
+      </div>
+
+      <center>
+        <a class="back-link" href="../index.html"
+          >← Back to Physics Simulations</a
+        >
+      </center>
     </div>
 
-    <div class="theory">
-      <h2>Real-World Applications</h2>
-
-      <h3>Why This Matters</h3>
-      <p>
-        Understanding the relationship between mass, force, and acceleration
-        helps explain many everyday phenomena:
-      </p>
-      <ul>
-        <li>
-          <strong>Vehicle Design:</strong> Lighter vehicles accelerate faster
-          with the same engine force
-        </li>
-        <li>
-          <strong>Sports:</strong> A tennis ball flies farther than a bowling
-          ball when hit with the same force
-        </li>
-        <li>
-          <strong>Space Travel:</strong> More massive rockets require more fuel
-          to achieve the same acceleration
-        </li>
-        <li>
-          <strong>Wind Resistance:</strong> Lighter objects are more affected by
-          wind (leaves vs. rocks)
-        </li>
-      </ul>
-
-      <h3>Try to Observe:</h3>
-      <ul>
-        <li>
-          How the balls <span class="highlight">fall at the same rate</span> due
-          to gravity
-        </li>
-        <li>
-          How the
-          <span class="highlight">wind affects them differently</span> based on
-          their mass
-        </li>
-        <li>
-          The difference in <span class="highlight">momentum</span> (mass ×
-          velocity) when they bounce
-        </li>
-      </ul>
-    </div>
-
-    <center>
-      <a class="back-link" href="../index.html"
-        >← Back to Physics Simulations</a
-      >
-    </center>
-
-    <!-- Load the simulation code -->
-    <script src="mover.js"></script>
+    <script src="../common/mover.js"></script>
     <script src="sketch.js"></script>
   </body>
 </html>

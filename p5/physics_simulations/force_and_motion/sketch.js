@@ -12,20 +12,36 @@
  * - Collision response
  */
 
-// Global variable to store our physical object
+// Global variables
 let mover;
+let canvasSize = { width: 640, height: 240 };
+let isMobile = false;
 
 /**
  * Setup function runs once at the beginning
  * Here we create the canvas and initialize our physics object
  */
 function setup() {
+  // Check if we're on a mobile device
+  isMobile = window.innerWidth < 768;
+
+  // Adjust canvas size for mobile if needed
+  if (isMobile) {
+    canvasSize.width = min(window.innerWidth - 40, 640); // Account for padding
+    // Keep the aspect ratio similar
+    canvasSize.height = int(canvasSize.width * 0.375);
+  }
+
   // Create canvas and place it in the canvas-container div
-  let canvas = createCanvas(640, 240);
+  let canvas = createCanvas(canvasSize.width, canvasSize.height);
   canvas.parent('canvas-container');
 
-  // Create a new mover object (our physics-based ball)
-  mover = new Mover();
+  // Create a mover object using the common Mover class
+  mover = new Mover(width / 2, 30, 1, {
+    showVelocityVector: false,
+    bounceFactor: -1, // Perfectly elastic bounce
+    frictionCoefficient: 0, // No friction in this basic simulation
+  });
 }
 
 /**
@@ -39,7 +55,7 @@ function draw() {
   // STEP 1: Create and apply forces
 
   // Create a constant downward force vector (simulating gravity)
-  // The value 0.1 represents the strength of gravity (try changing it!)
+  // The value 0.1 represents the strength of gravity
   let gravity = createVector(0, 0.1);
 
   // Apply gravity force to our object
@@ -60,12 +76,25 @@ function draw() {
   mover.update();
 
   // STEP 3: Display the object at its new position
-  mover.display();
+  mover.show();
 
   // STEP 4: Check if the object has hit any boundaries and respond
-  mover.checkEdges();
+  mover.bounceEdges();
+}
 
-  // Then the draw loop repeats! (about 60 times per second)
+/**
+ * Handle window resize events
+ */
+function windowResized() {
+  // Only resize if on mobile
+  if (window.innerWidth < 768) {
+    // Update canvas size
+    canvasSize.width = min(window.innerWidth - 40, 640);
+    canvasSize.height = int(canvasSize.width * 0.375);
+
+    // Resize and redraw
+    resizeCanvas(canvasSize.width, canvasSize.height);
+  }
 }
 
 /**
